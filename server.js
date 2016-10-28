@@ -16,3 +16,10 @@ const router = app.Router() ;
 //---------------------------
 //App Configuration
 //---------------------------
+
+// req.body
+app.use(bodyParser.urlencoded({ extended : true }));
+app.use(bodyParser.json());
+app.use(cors());
+
+const data = require('./data.json');
