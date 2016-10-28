@@ -38,6 +38,11 @@ router.get('/books', (req, res) => {
 
 app.use('/', router) // better stay in the server.js
 
+//---------------------------
+// Run the app
+//---------------------------
+
+
 const hostname = process.env.HOST || "localhost"
 const port = process.env.PORT || '3000'
 
