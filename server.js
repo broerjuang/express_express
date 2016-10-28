@@ -23,4 +23,24 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const books = require('./data.js');
-console.log(books);
+
+//---------------------------
+// Route Configuration
+//---------------------------
+
+router.get('/books', (req, res) => {
+  res.send(books)
+});
+
+//---------------------------
+// Register Routes
+//---------------------------
+
+app.use('/', router) // better stay in the server.js
+
+const hostname = process.env.HOST || "localhost"
+const port = process.env.PORT || '3000'
+
+app.listen(port, () => {
+  console.log('server is running on port ', port);
+})
