@@ -1,5 +1,8 @@
 const books = require('../data/books.js')
 
+// data with mongoose Model
+const Book = require('../models/books');
+
 // -----------------------------------------------------------------------------
 // CONTROLLING
 // -----------------------------------------------------------------------------
@@ -17,7 +20,10 @@ module.exports = {
     api/books
   */
   getBooks: (req, res) => {
-    res.json(books)
+    //res.json(books)
+    Book.find({}, (data) => {
+      res.send(data)
+    })
   },
 
   /*
@@ -27,11 +33,14 @@ module.exports = {
   postBooks: (req, res) => {
     const book = {
       id: Number(req.body.id),
-      name: req.body.name,
+      title: req.body.title,
       price: Number(req.body.price)
     }
-    books.push(book)
-    res.json(book)
+    // books.push(book)
+    Book.create(book, (err, data) => {
+      err? res.send(data) : res.json(data)
+    })
+    //res.json(book)
   },
 
   /*
