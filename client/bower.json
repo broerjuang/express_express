@@ -1,0 +1,22 @@
+{
+  "name": "express_workshop_client",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "broerjuang"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/broerjuang/express_express",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "semantic": "semantic-ui#^2.2.6",
+    "jquery": "^3.1.1"
+  }
+}
