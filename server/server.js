@@ -8,6 +8,7 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const mongoose = require('mongoose');
 
 // Initiate Express
 const app = express()
@@ -23,10 +24,13 @@ const apiBooks = require('./routes/api.books')
 // APP CONFIGURATION
 // -----------------------------------------------------------------------------
 
-// req.body
+// Express
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(cors())
+
+
+mongoose.
 
 // -----------------------------------------------------------------------------
 // REGISTER ROUTES
