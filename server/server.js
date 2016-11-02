@@ -1,79 +1,47 @@
 'use strict'
 
-//---------------------------
-// Node Modules
-//---------------------------
+// -----------------------------------------------------------------------------
+// NODE MODULES
+// -----------------------------------------------------------------------------
 
-// Express Dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
+// Express dependencies
+const express = require('express')
+const bodyParser = require('body-parser')
+const cors = require('cors')
 
-//Initiate Express
-const app = express();
-const router = express.Router() ;
+// Initiate Express
+const app = express()
+const router = express.Router()
 
-//---------------------------
-//App Configuration
-//---------------------------
+// -----------------------------------------------------------------------------
+// APP MODULES
+// -----------------------------------------------------------------------------
+
+const routeBooks = require('./routes/books')
+
+// -----------------------------------------------------------------------------
+// APP CONFIGURATION
+// -----------------------------------------------------------------------------
 
 // req.body
-app.use(bodyParser.urlencoded({ extended : true }));
-app.use(bodyParser.json());
-app.use(cors());
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+app.use(cors())
 
-const books = require('./data.js');
+// -----------------------------------------------------------------------------
+// REGISTER ROUTES
+// -----------------------------------------------------------------------------
 
-//---------------------------
-// Route Configuration
-//---------------------------
+app.use('/api', routeBooks)
 
+// -----------------------------------------------------------------------------
+// RUN THE APP
+// -----------------------------------------------------------------------------
 
-router.get('/books', (req, res) => {
-  res.send(books)
-});
+const host = process.env.HOST || "localhost"
+const port = process.env.PORT || "3000"
 
-router.post('/books', (req, res) => {
-  let book = {
-    id : Number(req.body.id),
-    title : req.body.title,
-    price : Number(req.body.price)
-  }
-
-  // push the book
-  books.push(book)
-  res.json(book)
-})
-
-// router.get('/books/:id', (req, res) => {
-//   const book = books.filter(book => book.id === req.params.id)
-// })[0]
-//   res.json(book)
-// })
-
-
-router.delete('/books/:id', (req, res) => {
-  // get book by id
-  const book = books.filter(book => {return book.id === Number(req.params.id)})
-  // delete the book by id
-  books.splice(books.indexOf(book), 1)
-  // send success message
-  res.json({'message' : `Book ${id} has been deleted`});
-})
-//---------------------------
-// Register Routes
-//---------------------------
-
-app.use('/', router) // better stay in the server.js
-
-//---------------------------
-// Run the app
-//---------------------------
-
-
-const hostname = process.env.HOST || "localhost"
-const port = process.env.PORT || '3000'
-
-app.listen(port, () => {
-  console.log('server is running on port ', port);
+app.listen(port, host, (err) => {
+  if (err) console.log(err)
+  console.log(`Server is running on ${host}:${port}`)
 })
