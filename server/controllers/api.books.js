@@ -48,11 +48,17 @@ module.exports = {
     api/books/:id
   */
   getBookById: (req, res) => {
-    const book = books.filter(book => {
-      return book.id === Number(req.params.id)
-    })[0]
-    if (!book) res.status(404).json({ 'message': "No book found" })
-    res.status(200).json(book)
+    // const book = books.filter(book => {
+    //   return book.id === Number(req.params.id)
+    // })[0]
+    // if (!book) res.status(404).json({ 'message': "No book found" })
+    // res.status(200).json(book)
+    Book.findOne({
+      id : req.params.id
+    }, (err, data) => {
+      err ? res.status(400).json({'error' : `Error : ${err}`}) :
+      res.status(200).json(data);
+    })
   },
 
   /*
@@ -61,13 +67,20 @@ module.exports = {
   */
   deleteBookById: (req, res) => {
     // get book by id
-    const book = books.filter(book => {
-      return book.id === Number(req.params.id)
-    })[0]
-    if (!book) res.status(404).json({ 'message': "No book found" })
-      // delete the book by id from array of book
-    books.splice(books.indexOf(book), 1)
-    res.status(200).json({ 'message': `Book ${req.params.id} has been deleted` })
+    //const book = books.filter(book => {
+    //   return book.id === Number(req.params.id)
+    // })[0]
+    // if (!book) res.status(404).json({ 'message': "No book found" })
+    //   // delete the book by id from array of book
+    // books.splice(books.indexOf(book), 1)
+    // res.status(200).json({ 'message': `Book ${req.params.id} has been deleted` })
+    Book.findOndeAndRemove({
+      id : req.params.id
+    }, (err, data) => {
+      err ? res.status(400).json({'error' : `Error : ${err}`}) :
+      res.status(200).json(data);
+
+    })
   },
 
   /*
